@@ -1,21 +1,33 @@
 const gulp = require('gulp'),
   sass = require('gulp-sass'),
+  purify = require('gulp-purifycss'),
   sourcemaps = require('gulp-sourcemaps'),
   imagemin = require('gulp-imagemin'),
   uglify = require('gulp-uglify'),
   babel = require('gulp-babel'),
   browserSync = require('browser-sync').create();
 
-const distDir = 'dist',
+var distDir = 'dist',
+  buildDir = 'build',
   srcDir = 'src';
 
 
 gulp.task('css', () => {
   return gulp.src(`${srcDir}/sass/**/*.scss`)
     .pipe(sourcemaps.init())
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write(`./maps`))
+    .pipe(gulp.dest(`${distDir}/css`))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('css+purify', () => {
+  return gulp.src(`${srcDir}/sass/**/*.scss`)
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(purify([`${srcDir}/js/**/*.js`, `${srcDir}/*.html`], {
+      minify: true
+    }))
     .pipe(sourcemaps.write(`./maps`))
     .pipe(gulp.dest(`${distDir}/css`))
     .pipe(browserSync.stream());
@@ -67,3 +79,8 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', ['css', 'js', 'copy', 'watch', 'server']);
+gulp.task('dev', ['css', 'js', 'copy', 'watch', 'server']);
+gulp.task('build', () => {
+  distDir = buildDir;
+  gulp.start(['css+purify', 'js', 'copy']);
+});

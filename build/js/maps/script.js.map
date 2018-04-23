@@ -1,0 +1,1 @@
+{"version":3,"sources":["script.js"],"names":["document","getElementById","addEventListener","alert"],"mappings":"YAAAA,UAASC,eAAe,SAASC,iBAAiB,QAAS,WACzDC,MAAM","file":"../script.js","sourcesContent":["document.getElementById('start').addEventListener('click', () => {\n  alert('Just kidding, button does nothing :)');\n});\n"]}
