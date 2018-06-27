@@ -83,8 +83,8 @@ gulp.task('watch', () => {
   gulp.watch(`${srcDir}/**/*.+(html|js)`).on('change', browserSync.reload);
 });
 
-gulp.task('default', ['css', 'js', 'copy', 'watch', 'server']);
-gulp.task('dev', ['css', 'js', 'copy', 'watch', 'server']);
+gulp.task('default', ['css-dev', 'js-dev', 'copy', 'watch', 'server']);
+gulp.task('dev', ['css-dev', 'js-dev', 'copy', 'watch', 'server']);
 gulp.task('build', () => {
   distDir = buildDir;
   gulp.start(['css-build', 'js-build', 'copy']);
