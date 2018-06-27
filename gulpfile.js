@@ -11,8 +11,7 @@ var distDir = 'dist',
   buildDir = 'build',
   srcDir = 'src';
 
-
-gulp.task('css', () => {
+gulp.task('css-dev', () => {
   return gulp.src(`${srcDir}/sass/**/*.scss`)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -21,26 +20,32 @@ gulp.task('css', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('css+purify', () => {
+gulp.task('css-build', () => {
   return gulp.src(`${srcDir}/sass/**/*.scss`)
-    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(purify([`${srcDir}/js/**/*.js`, `${srcDir}/*.html`], {
       minify: true
     }))
-    .pipe(sourcemaps.write(`./maps`))
     .pipe(gulp.dest(`${distDir}/css`))
     .pipe(browserSync.stream());
 });
 
-gulp.task('js', () => {
+gulp.task('js-dev', () => {
   return gulp.src(`${srcDir}/js/**/*.js`)
     .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['env']
     }))
-    .pipe(uglify())
     .pipe(sourcemaps.write(`./maps`))
+    .pipe(gulp.dest(`${distDir}/js`));
+});
+
+gulp.task('js-build', () => {
+  return gulp.src(`${srcDir}/js/**/*.js`)
+    .pipe(babel({
+      presets: ['env']
+    }))
+    .pipe(uglify())
     .pipe(gulp.dest(`${distDir}/js`));
 });
 
@@ -71,8 +76,8 @@ gulp.task('server', () => {
 gulp.task('copy', ['html', 'fonts', 'img']);
 
 gulp.task('watch', () => {
-  gulp.watch(`${srcDir}/sass/**/*.scss`, ['css']);
-  gulp.watch(`${srcDir}/js/**/*.js`, ['js']);
+  gulp.watch(`${srcDir}/sass/**/*.scss`, ['css-dev']);
+  gulp.watch(`${srcDir}/js/**/*.js`, ['js-dev']);
   gulp.watch(`${srcDir}/**/*.html`, ['html']);
   gulp.watch(`${srcDir}/img/**/*.+(jpg|jpeg|png|svg|gif)`, ['img']);
   gulp.watch(`${srcDir}/**/*.+(html|js)`).on('change', browserSync.reload);
@@ -82,5 +87,5 @@ gulp.task('default', ['css', 'js', 'copy', 'watch', 'server']);
 gulp.task('dev', ['css', 'js', 'copy', 'watch', 'server']);
 gulp.task('build', () => {
   distDir = buildDir;
-  gulp.start(['css+purify', 'js', 'copy']);
+  gulp.start(['css-build', 'js-build', 'copy']);
 });
