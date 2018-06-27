@@ -5,6 +5,14 @@ This is convenient template to work on pages which are not that advanced (not Re
 
 ## Getting Started :bulb:
 
+### Installation
+
+Install globally gulp with [npm](https://www.npmjs.com/):
+
+```
+npm install -g gulp
+```
+
 ### Development :wrench:
 
 To enable Development version with live preview and changes catching, simply write:
