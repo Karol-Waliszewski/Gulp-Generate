@@ -22,7 +22,7 @@ gulp.task('css-dev', () => {
 
 gulp.task('css-build', () => {
   return gulp.src(`${srcDir}/sass/**/*.scss`)
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(purify([`${srcDir}/js/**/*.js`, `${srcDir}/*.html`], {
       minify: true
     }))
