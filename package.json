@@ -17,7 +17,8 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
-    "imagemin-mozjpeg": "^7.0.0"
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-optipng": "^7.0.0"
   },
   "dependencies": {
     "gulp": "^4.0.2"
