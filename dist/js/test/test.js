@@ -1,2 +1,4 @@
-"use strict";var test=0;
+"use strict";
+
+var test = 0;
 //# sourceMappingURL=../maps/test/test.js.map
