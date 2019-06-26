@@ -13,7 +13,8 @@ const gulp = require("gulp"),
 
 var distDir = "dist",
   buildDir = "docs",
-  srcDir = "src";
+  srcDir = "src",
+  assetsDir = "img";
 
 var imageQuality = {
   jpg: 80, // %
@@ -80,7 +81,7 @@ var fonts = () => {
 
 var img = () => {
   return gulp
-    .src(`${srcDir}/img/**/*.+(jpg|jpeg|png|svg|gif)`)
+    .src(`${srcDir}/${assetsDir}/**/*.+(jpg|jpeg|png|svg|gif)`)
     .pipe(
       imagemin([
         //svg
@@ -102,7 +103,7 @@ var img = () => {
         })
       ])
     )
-    .pipe(gulp.dest(`${distDir}/img`));
+    .pipe(gulp.dest(`${distDir}/${assetsDir}`));
 };
 
 var server = cb => {
@@ -118,7 +119,7 @@ var watch = () => {
   gulp.watch(`${srcDir}/sass/**/*.scss`, cssDev);
   gulp.watch(`${srcDir}/js/**/*.js`, jsDev);
   gulp.watch(`${srcDir}/**/*.html`, html);
-  gulp.watch(`${srcDir}/img/**/*.+(jpg|jpeg|png|svg|gif)`, img);
+  gulp.watch(`${srcDir}/${assetsDir}/**/*.+(jpg|jpeg|png|svg|gif)`, img);
   gulp.watch(`${srcDir}/**/*.+(html|js)`).on("change", browserSync.reload);
 };
 
