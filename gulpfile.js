@@ -38,7 +38,7 @@ var cssBuild = () => {
     .src(`${srcDir}/sass/**/*.scss`)
     .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
     .pipe(
-      purify([`${srcDir}/js/**/*.js`, `${srcDir}/*.html`], {
+      purify([`${srcDir}/js/**/*.js`, `${srcDir}/**/*.html`], {
         minify: true
       })
     )
@@ -72,7 +72,7 @@ var jsBuild = () => {
 };
 
 var html = () => {
-  return gulp.src(`${srcDir}/*.html`).pipe(gulp.dest(distDir));
+  return gulp.src(`${srcDir}/**/*.html`).pipe(gulp.dest(distDir));
 };
 
 var fonts = () => {
