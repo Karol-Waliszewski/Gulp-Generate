@@ -34,3 +34,29 @@ To build your website write:
 ```
 gulp build
 ```
+
+### Configuration :gear:
+
+Simply change values in ```gulpfile.js```:
+
+```javascript
+// ------- EDIT SECTION ------- //
+
+var distDir = "dist",
+  buildDir = "docs",
+  srcDir = "src",
+  assetsDir = "img";
+
+var imageQuality = {
+  jpg: 80, // 0 - 100%
+  png: 6 // 1 - 7
+};
+
+// ----------- END ----------- //
+```
+
+## Meta
+
+Karol Waliszewski – [karolwaliszewski@gmail.com](mailto:karolwaliszewski@gmail.com)
+
+https://github.com/Karol-Waliszewski

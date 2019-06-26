@@ -17,7 +17,7 @@ var distDir = "dist",
   assetsDir = "img";
 
 var imageQuality = {
-  jpg: 80, // %
+  jpg: 80, // 0 - 100%
   png: 6 // 1 - 7
 };
 
