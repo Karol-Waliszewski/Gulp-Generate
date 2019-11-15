@@ -1,4 +1,6 @@
+// Modules
 const inquirer = require("inquirer");
+const args = require("./arguments");
 
 // Questions
 var template = {
@@ -27,7 +29,8 @@ var project_name = {
     if (/^([A-Za-z\-\_\d])+$/.test(input) && input.length > 0) return true;
     else
       return "Project name may only include letters, numbers, underscores and hashes.";
-  }
+  },
+  when: () => (args.getProjectName()) ? false : true
 };
 
 const QUESTIONS = [template, addons, project_name];
