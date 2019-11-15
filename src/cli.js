@@ -1,5 +1,9 @@
+const inquirer = require("./inquirer");
+
 const init = function() {
-  console.log("Hello World!!");
+  inquirer().then(answers => {
+    console.log(answers);
+  });
 };
 
 module.exports = {
