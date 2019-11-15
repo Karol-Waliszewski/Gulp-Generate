@@ -7,7 +7,7 @@ var template = {
   type: "list",
   name: "template",
   message: "What template do you want to use?",
-  choices: ["Classic"],
+  choices: ["Classic", "Custom"],
   filter: function(val) {
     return val.toLowerCase();
   }
@@ -17,7 +17,9 @@ var addons = {
   type: "checkbox",
   name: "addons",
   message: "Choose what you need:",
-  choices: ["sass", "less", "typescript"]
+  choices: ["sass", "less", "typescript"],
+  // Executing only if previos template is set on "custom"
+  when: (response) => (response.template == "custom") ? true : false
 };
 
 var project_name = {
