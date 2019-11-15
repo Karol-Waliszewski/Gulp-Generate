@@ -1,0 +1,23 @@
+{
+  "name": "gulp-generator",
+  "version": "1.0.0",
+  "description": "gulp project generator which makes your life easier!",
+  "main": "index.js",
+  "bin": {
+    "gulp-generator": "./bin/index.js"
+  },
+  "scripts": {},
+  "keywords": [
+    "gulp",
+    "generator",
+    "creator"
+  ],
+  "author": "Karol Waliszewski",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "inquirer": "^7.0.0",
+    "listr": "^0.14.3",
+    "pkg-install": "^1.0.0"
+  }
+}
