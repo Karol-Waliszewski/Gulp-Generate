@@ -4,7 +4,8 @@ const path = require("path");
 const MODULE = {
   require: `sass = require("gulp-sass"),`,
   watch: "gulp.watch(`${srcDir}/scss/**/*.css`, cssDev);",
-  code: fs.readFileSync(path.join(__dirname, "../code/sass.js"), "utf8")
+  code: fs.readFileSync(path.join(__dirname, "../code/sass.js"), "utf8"),
+  package: `"gulp-sass": "^3.1.0"`
 };
 
 module.exports = MODULE;

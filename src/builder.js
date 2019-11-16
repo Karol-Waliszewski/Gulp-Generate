@@ -13,7 +13,12 @@ const BUILD = function() {
   config = REPLACE_FUNCTIONS(config);
   config = REPLACE_REQUIRES(config);
   config = REPLACE_WATCHERS(config);
-  console.log(config);
+
+  let pckg = GET_PACKAGE();
+  pckg = REPLACE_PACKAGES(pckg);
+
+  console.log(pckg);
+  //console.log(config);
 };
 
 const REPLACE_FUNCTIONS = function(config) {
@@ -50,9 +55,28 @@ const REPLACE_WATCHERS = function(config) {
   return config.replace("WATCH_REPLACE", watchers);
 };
 
+const REPLACE_PACKAGES = function(package) {
+  let packages = "";
+  for (let partial of partials) {
+    if (partial.package) {
+      let pckg = partial.package.replace(",", "");
+      packages = packages + "," + pckg;
+      packages += "\n";
+    }
+  }
+  return package.replace("PACKAGES_REPLACE", packages);
+};
+
 const GET_CONFIG = function() {
   return fs.readFileSync(
     path.join(__dirname, "./templates/workflow/gulpfile.js"),
+    "utf8"
+  );
+};
+
+const GET_PACKAGE = function() {
+  return fs.readFileSync(
+    path.join(__dirname, "./templates/workflow/package.json"),
     "utf8"
   );
 };

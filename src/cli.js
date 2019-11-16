@@ -2,6 +2,20 @@
 const inquirer = require("./inquirer");
 const args = require("./arguments");
 const builder = require("./builder");
+const { install } = require("pkg-install");
+
+// (async () => {
+//   const { stdout } = await install(
+//     {
+//       sass: undefined
+//     },
+//     {
+//       dev: true,
+//       prefer: "npm"
+//     }
+//   );
+//   console.log(stdout);
+// })();
 
 const init = function() {
   inquirer().then(answers => {
