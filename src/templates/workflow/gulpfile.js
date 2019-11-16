@@ -1,5 +1,4 @@
 const gulp = require("gulp"),
-  sass = require("gulp-sass"),
   purify = require("gulp-purifycss"),
   sourcemaps = require("gulp-sourcemaps"),
   imagemin = require("gulp-imagemin"),
@@ -7,6 +6,7 @@ const gulp = require("gulp"),
   optipng = require("imagemin-optipng"),
   uglify = require("gulp-uglify"),
   babel = require("gulp-babel"),
+  REQUIRE_REPLACE
   browserSync = require("browser-sync").create();
 
 // ------- EDIT SECTION ------- //
@@ -22,29 +22,6 @@ var imageQuality = {
 };
 
 // ----------- END ----------- //
-
-var cssDev = () => {
-  return gulp
-    .src(`${srcDir}/sass/**/*.scss`)
-    .pipe(sourcemaps.init())
-    .pipe(sass().on("error", sass.logError))
-    .pipe(sourcemaps.write(`./maps`))
-    .pipe(gulp.dest(`${distDir}/css`))
-    .pipe(browserSync.stream());
-};
-
-var cssBuild = () => {
-  return gulp
-    .src(`${srcDir}/sass/**/*.scss`)
-    .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
-    .pipe(
-      purify([`${srcDir}/js/**/*.js`, `${srcDir}/**/*.html`], {
-        minify: true
-      })
-    )
-    .pipe(gulp.dest(`${distDir}/css`))
-    .pipe(browserSync.stream());
-};
 
 var jsDev = () => {
   return gulp
@@ -106,6 +83,8 @@ var img = () => {
     .pipe(gulp.dest(`${distDir}/${assetsDir}`));
 };
 
+FUNCTIONS_REPLACE
+
 var server = cb => {
   browserSync.init({
     server: {
@@ -116,12 +95,12 @@ var server = cb => {
 };
 
 var watch = () => {
-  gulp.watch(`${srcDir}/sass/**/*.scss`, cssDev);
   gulp.watch(`${srcDir}/js/**/*.js`, jsDev);
   gulp.watch(`${srcDir}/**/*.html`, html);
   gulp.watch(`${srcDir}/fonts/*.*`, fonts);
   gulp.watch(`${srcDir}/${assetsDir}/**/*.+(jpg|jpeg|png|svg|gif)`, img);
   gulp.watch(`${srcDir}/**/*.+(html|js)`).on("change", browserSync.reload);
+  WATCH_REPLACE
 };
 
 var setBuild = cb => {

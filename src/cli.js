@@ -5,6 +5,7 @@ const builder = require("./builder");
 
 const init = function() {
   inquirer().then(answers => {
+    builder.build();
     // If project's name has been chosen by shortcut
     if (!("project_name" in answers)) {
       answers.project_name = args.getProjectName();
