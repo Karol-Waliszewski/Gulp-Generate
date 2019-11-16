@@ -1,6 +1,7 @@
 // Modules
 const inquirer = require("./inquirer");
 const args = require("./arguments");
+const builder = require("./builder");
 
 const init = function() {
   inquirer().then(answers => {
@@ -8,8 +9,10 @@ const init = function() {
     if (!("project_name" in answers)) {
       answers.project_name = args.getProjectName();
     }
-    
+
     console.log(answers);
+
+    builder.build();
   });
 };
 
