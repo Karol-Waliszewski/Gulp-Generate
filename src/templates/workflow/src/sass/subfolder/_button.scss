@@ -1,0 +1,18 @@
+.button {
+  position: relative;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  outline: none;
+  border: none;
+  border-bottom: darken(#f1c40f, 10%) 3px solid;
+  border-radius: 5px;
+  background: #f1c40f;
+  color: white;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 250ms;
+  &:hover {
+      background: darken(#f1c40f,2%);
+  }
+}
