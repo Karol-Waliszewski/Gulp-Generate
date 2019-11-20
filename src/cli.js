@@ -10,6 +10,8 @@ const builder = require("./builder");
 const manager = require("./file_manager");
 
 const init = async function() {
+  
+  // Prompting
   let answers = await inquirer();
 
   // If project's name has been chosen by shortcut
@@ -17,6 +19,7 @@ const init = async function() {
     answers.project_name = args.getProjectName();
   }
 
+  // Overriding
   switch (answers.override) {
     case false:
       return false;
@@ -36,6 +39,7 @@ const init = async function() {
     manager.generateDir(answers.project_name)
   );
 
+  // Configuration
   let addons;
   if (answers.addons) {
     addons = answers.addons;
@@ -51,6 +55,7 @@ const init = async function() {
   manager.saveFile(path.join(answers.project_name, "gulpfile.js"), gulpfile);
   manager.saveFile(path.join(answers.project_name, "package.json"), package);
 
+  // Success Message
   console.log(chalk.bold("Your project has been created successfully!"));
 };
 

@@ -5,6 +5,8 @@ const path = require("path");
 // Partials
 const css = require("./templates/partials/css");
 const sass = require("./templates/partials/sass");
+const js = require("./templates/partials/javascript");
+const babel = require("./templates/partials/babel");
 
 const GENERATE_CONFIG = function(addons) {
   let config = {};
@@ -14,6 +16,13 @@ const GENERATE_CONFIG = function(addons) {
     config.style = sass;
   } else {
     config.style = css;
+  }
+
+  // JS
+  if (addons.includes("babel")) {
+    config.js = babel;
+  } else {
+    config.js = js;
   }
 
   return Object.values(config);

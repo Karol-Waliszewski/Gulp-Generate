@@ -5,7 +5,6 @@ const gulp = require("gulp"),
   mozjpeg = require("imagemin-mozjpeg"),
   optipng = require("imagemin-optipng"),
   uglify = require("gulp-uglify"),
-  babel = require("gulp-babel"),
   REQUIRE_REPLACE
   browserSync = require("browser-sync").create();
 
@@ -22,31 +21,6 @@ var imageQuality = {
 };
 
 // ----------- END ----------- //
-
-var jsDev = () => {
-  return gulp
-    .src(`${srcDir}/js/**/*.js`)
-    .pipe(sourcemaps.init())
-    .pipe(
-      babel({
-        presets: ["env"]
-      })
-    )
-    .pipe(sourcemaps.write(`./maps`))
-    .pipe(gulp.dest(`${distDir}/js`));
-};
-
-var jsBuild = () => {
-  return gulp
-    .src(`${srcDir}/js/**/*.js`)
-    .pipe(
-      babel({
-        presets: ["env"]
-      })
-    )
-    .pipe(uglify())
-    .pipe(gulp.dest(`${distDir}/js`));
-};
 
 var html = () => {
   return gulp.src(`${srcDir}/**/*.html`).pipe(gulp.dest(distDir));
@@ -95,7 +69,6 @@ var server = cb => {
 };
 
 var watch = () => {
-  gulp.watch(`${srcDir}/js/**/*.js`, jsDev);
   gulp.watch(`${srcDir}/**/*.html`, html);
   gulp.watch(`${srcDir}/fonts/*.*`, fonts);
   gulp.watch(`${srcDir}/${assetsDir}/**/*.+(jpg|jpeg|png|svg|gif)`, img);

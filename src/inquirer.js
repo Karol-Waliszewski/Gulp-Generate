@@ -11,6 +11,7 @@ const TEMPLATE = {
   choices: [
     { name: "Classic", value: ["babel"] },
     { name: "Sass", value: ["sass", "babel"] },
+    { name: "Clean", value: [] },
     { name: "Custom", value: "custom" }
   ]
 };
@@ -19,7 +20,7 @@ const ADDONS = {
   type: "checkbox",
   name: "addons",
   message: "Choose what you need:",
-  choices: ["sass", "less", "typescript"],
+  choices: ["sass", "babel"],
   // Executing only if previos template is set on "custom"
   when: response => (response.template == "custom" ? true : false)
 };
