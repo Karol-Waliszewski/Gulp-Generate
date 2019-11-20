@@ -27,6 +27,13 @@ or
 gulp dev
 ```
 
+To skip image optimization on start, type:
+
+```
+gulp lite
+```
+
+
 ### Production :inbox_tray:
 
 To build your website write:

@@ -84,9 +84,11 @@ var setBuild = cb => {
 const copy = gulp.parallel(html, fonts, img);
 const dev = gulp.series(gulp.parallel(cssDev, jsDev, copy), server, watch);
 const build = gulp.series(setBuild, gulp.parallel(cssBuild, jsBuild, copy));
+const lite = gulp.series(gulp.parallel(cssDev, jsDev, html,fonts), server, watch);
 
 exports.copy = copy;
 exports.dev = dev;
 exports.build = build;
+exports.lite = lite;
 
 exports.default = dev;
