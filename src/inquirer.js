@@ -1,9 +1,10 @@
 // Modules
 const inquirer = require("inquirer");
 const args = require("./arguments");
+const manager = require("./file_manager");
 
 // Questions
-var template = {
+const TEMPLATE = {
   type: "list",
   name: "template",
   message: "What template do you want to use?",
@@ -13,16 +14,16 @@ var template = {
   }
 };
 
-var addons = {
+const ADDONS = {
   type: "checkbox",
   name: "addons",
   message: "Choose what you need:",
   choices: ["sass", "less", "typescript"],
   // Executing only if previos template is set on "custom"
-  when: (response) => (response.template == "custom") ? true : false
+  when: response => (response.template == "custom" ? true : false)
 };
 
-var project_name = {
+const PROJECT_NAME = {
   type: "input",
   name: "project_name",
   message: "What's name of your project?",
@@ -32,10 +33,22 @@ var project_name = {
     else
       return "Project name may only include letters, numbers, underscores and hashes.";
   },
-  when: () => (args.getProjectName()) ? false : true
+  when: () => (args.getProjectName() ? false : true)
 };
 
-const QUESTIONS = [template, addons, project_name];
+var DIR_EXIST = {
+  type: "confirm",
+  name: "override",
+  message: "Directory already exists. Do you want to override?",
+  default: false,
+
+  when: response => {
+    let dir = response.project_name || args.getProjectName();
+    return manager.dirExists(dir);
+  }
+};
+
+const QUESTIONS = [TEMPLATE, ADDONS, PROJECT_NAME, DIR_EXIST];
 
 const PROMPT = inquirer.createPromptModule();
 

@@ -8,17 +8,23 @@ const sass = require("./templates/partials/sass");
 
 const partials = [css, sass];
 
-const BUILD = function() {
+const BUILD = function(dirName) {
+  let gulpfile = GENERATE_GULPFILE();
+  let package = GENERATE_PACKAGE();
+};
+
+const GENERATE_GULPFILE = function() {
   let config = GET_CONFIG();
   config = REPLACE_FUNCTIONS(config);
   config = REPLACE_REQUIRES(config);
   config = REPLACE_WATCHERS(config);
+  return config;
+};
 
+const GENERATE_PACKAGE = function() {
   let pckg = GET_PACKAGE();
   pckg = REPLACE_PACKAGES(pckg);
-
-  console.log(pckg);
-  //console.log(config);
+  return pckg;
 };
 
 const REPLACE_FUNCTIONS = function(config) {
@@ -82,5 +88,7 @@ const GET_PACKAGE = function() {
 };
 
 module.exports = {
-  build: BUILD
+  build: BUILD,
+  generateGulpfile: GENERATE_GULPFILE,
+  generatePackage: GENERATE_PACKAGE
 };

@@ -1,34 +1,36 @@
-// Modules
+// NPM Modules
+const { install } = require("pkg-install");
+const path = require("path");
+const fs = require("fs");
+
+// My Modules
 const inquirer = require("./inquirer");
 const args = require("./arguments");
 const builder = require("./builder");
-const { install } = require("pkg-install");
+const manager = require("./file_manager");
 
-// (async () => {
-//   const { stdout } = await install(
-//     {
-//       sass: undefined
-//     },
-//     {
-//       dev: true,
-//       prefer: "npm"
-//     }
-//   );
-//   console.log(stdout);
-// })();
+const init = async function() {
+  let answers = await inquirer();
 
-const init = function() {
-  inquirer().then(answers => {
-    builder.build();
-    // If project's name has been chosen by shortcut
-    if (!("project_name" in answers)) {
-      answers.project_name = args.getProjectName();
-    }
+  // If project's name has been chosen by shortcut
+  if (!("project_name" in answers)) {
+    answers.project_name = args.getProjectName();
+  }
 
-    console.log(answers);
+  switch (answers.override) {
+    case false:
+      return false;
+    case true:
+      manager.overrideDir(answers.project_name);
+      break;
 
-    builder.build();
-  });
+    // Undefined
+    default:
+      manager.createDir(answers.project_name);
+      break;
+  }
+
+  builder.build();
 };
 
 module.exports = {
