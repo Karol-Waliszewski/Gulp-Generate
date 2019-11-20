@@ -6,38 +6,46 @@ const path = require("path");
 const css = require("./templates/partials/css");
 const sass = require("./templates/partials/sass");
 
-const partials = [css, sass];
+const GENERATE_CONFIG = function(addons) {
+  let config = {};
 
-const BUILD = function(dirName) {
-  let gulpfile = GENERATE_GULPFILE();
-  let package = GENERATE_PACKAGE();
+  // Stylesheets
+  if (addons.includes("sass")) {
+    config.style = sass;
+  } else {
+    config.style = css;
+  }
+
+  return Object.values(config);
 };
 
-const GENERATE_GULPFILE = function() {
-  let config = GET_CONFIG();
-  config = REPLACE_FUNCTIONS(config);
-  config = REPLACE_REQUIRES(config);
-  config = REPLACE_WATCHERS(config);
-  return config;
+const GENERATE_GULPFILE = function(addons) {
+  let gulp = GET_GULPFILE();
+  let config = GENERATE_CONFIG(addons);
+  gulp = REPLACE_FUNCTIONS(gulp, config);
+  gulp = REPLACE_REQUIRES(gulp, config);
+  gulp = REPLACE_WATCHERS(gulp, config);
+  return gulp;
 };
 
-const GENERATE_PACKAGE = function() {
+const GENERATE_PACKAGE = function(addons) {
   let pckg = GET_PACKAGE();
-  pckg = REPLACE_PACKAGES(pckg);
+  let config = GENERATE_CONFIG(addons);
+  pckg = REPLACE_PACKAGES(pckg, config);
   return pckg;
 };
 
-const REPLACE_FUNCTIONS = function(config) {
+const REPLACE_FUNCTIONS = function(gulp, config) {
   let functions = "";
-  for (let partial of partials) {
+  for (let partial of config) {
     functions += partial.code;
   }
-  return config.replace("FUNCTIONS_REPLACE", functions);
+  return gulp.replace("FUNCTIONS_REPLACE", functions);
 };
 
-const REPLACE_REQUIRES = function(config) {
+const REPLACE_REQUIRES = function(gulp, config) {
   let requires = "";
-  for (let partial of partials) {
+  for (let partial of config) {
     let req = partial.require;
     if (!req.endsWith(",") && req.length) {
       req += ",";
@@ -47,33 +55,38 @@ const REPLACE_REQUIRES = function(config) {
       requires += "\n";
     }
   }
-  return config.replace("REQUIRE_REPLACE", requires);
+  return gulp.replace("REQUIRE_REPLACE", requires);
 };
 
-const REPLACE_WATCHERS = function(config) {
+const REPLACE_WATCHERS = function(gulp, config) {
   let watchers = "";
-  for (let partial of partials) {
+  for (let partial of config) {
     if (partial.watch) {
       watchers += partial.watch;
       watchers += "\n";
     }
   }
-  return config.replace("WATCH_REPLACE", watchers);
+  return gulp.replace("WATCH_REPLACE", watchers);
 };
 
-const REPLACE_PACKAGES = function(package) {
+const REPLACE_PACKAGES = function(package, config) {
   let packages = "";
-  for (let partial of partials) {
+  for (let partial of config) {
     if (partial.package) {
-      let pckg = partial.package.replace(",", "");
-      packages = packages + "," + pckg;
-      packages += "\n";
+      let pckg = partial.package;
+      if (pckg.startsWith(",")) {
+        pckg = pckg.slice(1, pckg.length);
+      }
+      if (pckg.endsWith(",")) {
+        pckg = pckg.slice(0, pckg.length - 1);
+      }
+      packages = packages + "," + "\n" + pckg;
     }
   }
   return package.replace("PACKAGES_REPLACE", packages);
 };
 
-const GET_CONFIG = function() {
+const GET_GULPFILE = function() {
   return fs.readFileSync(
     path.join(__dirname, "./templates/replaces/gulpfile.js"),
     "utf8"
@@ -88,7 +101,6 @@ const GET_PACKAGE = function() {
 };
 
 module.exports = {
-  build: BUILD,
   generateGulpfile: GENERATE_GULPFILE,
   generatePackage: GENERATE_PACKAGE
 };

@@ -36,9 +36,16 @@ const init = async function() {
     manager.generateDir(answers.project_name)
   );
 
+  let addons;
+  if (answers.addons) {
+    addons = answers.addons;
+  } else {
+    addons = answers.template;
+  }
+
   // Generatic dynamic files
-  let gulpfile = builder.generateGulpfile();
-  let package = builder.generatePackage();
+  let gulpfile = builder.generateGulpfile(addons);
+  let package = builder.generatePackage(addons);
 
   // Saving dynamic files
   manager.saveFile(path.join(answers.project_name, "gulpfile.js"), gulpfile);

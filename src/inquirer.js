@@ -8,10 +8,11 @@ const TEMPLATE = {
   type: "list",
   name: "template",
   message: "What template do you want to use?",
-  choices: ["Classic", "Custom"],
-  filter: function(val) {
-    return val.toLowerCase();
-  }
+  choices: [
+    { name: "Classic", value: ["babel"] },
+    { name: "Sass", value: ["sass", "babel"] },
+    { name: "Custom", value: "custom" }
+  ]
 };
 
 const ADDONS = {
