@@ -1,7 +1,7 @@
 // NPM Modules
 const { install } = require("pkg-install");
 const path = require("path");
-const fs = require("fs");
+const chalk = require("chalk");
 
 // My Modules
 const inquirer = require("./inquirer");
@@ -30,7 +30,21 @@ const init = async function() {
       break;
   }
 
-  builder.build();
+  // Copying static files
+  manager.copyDir(
+    path.join(__dirname, "./templates/workflow"),
+    manager.generateDir(answers.project_name)
+  );
+
+  // Generatic dynamic files
+  let gulpfile = builder.generateGulpfile();
+  let package = builder.generatePackage();
+
+  // Saving dynamic files
+  manager.saveFile(path.join(answers.project_name, "gulpfile.js"), gulpfile);
+  manager.saveFile(path.join(answers.project_name, "package.json"), package);
+
+  console.log(chalk.bold("Your project has been created successfully!"));
 };
 
 module.exports = {
