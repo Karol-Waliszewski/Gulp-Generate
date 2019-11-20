@@ -75,14 +75,14 @@ const REPLACE_PACKAGES = function(package) {
 
 const GET_CONFIG = function() {
   return fs.readFileSync(
-    path.join(__dirname, "./templates/workflow/gulpfile.js"),
+    path.join(__dirname, "./templates/replaces/gulpfile.js"),
     "utf8"
   );
 };
 
 const GET_PACKAGE = function() {
   return fs.readFileSync(
-    path.join(__dirname, "./templates/workflow/package.json"),
+    path.join(__dirname, "./templates/replaces/package.json"),
     "utf8"
   );
 };
