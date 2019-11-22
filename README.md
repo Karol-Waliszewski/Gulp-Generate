@@ -1,4 +1,4 @@
-# Gulp Generator
+# Gulp Generate
 
 ## About
 
@@ -8,20 +8,20 @@ This generator produces every file needed for convenient web development less ad
 
 ### Installation :zap:
 
-Install globally gulp-generator with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+Install globally gulp-generate with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
 ```
-npm install -g gulp-generator
+npm install -g gulp-generate
 ```
 
 ```
-yarn global add gulp-generator
+yarn global add gulp-generate
 ```
 
 ### Generating project :v:
 
 ```
-gulp-generator <project_name>
+gulp-generate <project_name>
 ```
 
 #### Development :wrench:

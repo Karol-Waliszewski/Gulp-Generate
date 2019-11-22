@@ -1,4 +1,4 @@
-# Gulp Generator Template
+# Gulp Generate Template
 
 ## About
 
