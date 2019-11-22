@@ -1,5 +1,4 @@
 // NPM Modules
-const { install } = require("pkg-install");
 const path = require("path");
 const chalk = require("chalk");
 
@@ -10,7 +9,6 @@ const builder = require("./builder");
 const manager = require("./file_manager");
 
 const init = async function() {
-  
   // Prompting
   let answers = await inquirer();
 
@@ -56,7 +54,28 @@ const init = async function() {
   manager.saveFile(path.join(answers.project_name, "package.json"), package);
 
   // Success Message
+  writeSuccessMessage(answers.project_name);
+};
+
+const writeSuccessMessage = function(project_name) {
   console.log(chalk.bold("Your project has been created successfully!"));
+  setTimeout(() => {
+    console.log(chalk.bold("Final steps:"));
+    console.log(chalk.blueBright.italic(`cd ${project_name}`));
+    console.log(
+      chalk.blueBright.italic(`npm install`) +
+        " or " +
+        chalk.blueBright.italic(`yarn install`)
+    );
+    console.log("Configure " + chalk.blueBright.italic(`gulpfile.js`));
+    console.log(
+      chalk.blueBright.italic(`gulp`) +
+        ", " +
+        chalk.blueBright.italic(`gulp lite`) +
+        " or " +
+        chalk.blueBright.italic(`gulp build`)
+    );
+  }, 300);
 };
 
 module.exports = {

@@ -38,7 +38,7 @@ const PROJECT_NAME = {
   when: () => (args.getProjectName() ? false : true)
 };
 
-var DIR_EXIST = {
+const DIR_EXIST = {
   type: "confirm",
   name: "override",
   message: "Directory already exists. Do you want to override?",

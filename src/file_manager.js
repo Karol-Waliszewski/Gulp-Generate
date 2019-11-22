@@ -1,5 +1,4 @@
 // NPM Modules
-const { install } = require("pkg-install");
 const path = require("path");
 const fs = require("fs");
 
