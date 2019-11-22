@@ -1,12 +1,16 @@
 {
   "name": "gulp-generate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "gulp project generator which makes your life easier!",
   "main": "index.js",
   "bin": {
     "gulp-generate": "./bin/index.js"
   },
   "scripts": {},
+  "repository": {
+    "type" : "git",
+    "url": "https://github.com/Karol-Waliszewski/Gulp-Generate"
+  },
   "keywords": [
     "gulp",
     "generator",
