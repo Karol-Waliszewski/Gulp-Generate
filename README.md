@@ -1,12 +1,30 @@
-# Gulp Generator Template
+# Gulp Generator
 
 ## About
 
-This template includes every file needed for convenient web development less advanced things. Also provides benefits like image optimization and hot reload.
+This generator produces every file needed for convenient web development less advanced things. Also provides benefits like image optimization and hot reload.
 
 ## Getting Started :bulb:
 
-### Development :wrench:
+### Installation :zap:
+
+Install globally gulp-generator with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+```
+npm install -g gulp-generator
+```
+
+```
+yarn global add gulp-generator
+```
+
+### Generating project :v:
+
+```
+gulp-generator <project_name>
+```
+
+#### Development :wrench:
 
 To enable Development version with live preview and changes catching, simply write:
 
@@ -27,7 +45,7 @@ gulp lite
 ```
 
 
-### Production :inbox_tray:
+#### Production :inbox_tray:
 
 To build your website write:
 
@@ -35,7 +53,7 @@ To build your website write:
 gulp build
 ```
 
-### Configuration :gear:
+#### Configuration :gear:
 
 Simply change values in ```gulpfile.js```:
 
