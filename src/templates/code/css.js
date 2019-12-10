@@ -15,7 +15,7 @@ var cssDev = () => {
           minify: true
         })
       )
-      .pipe(gulp.dest(`${distDir}/css`))
+      .pipe(gulp.dest(`${distDir}/styles`))
       .pipe(browserSync.stream());
   };
   
